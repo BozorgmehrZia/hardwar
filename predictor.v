@@ -4,7 +4,7 @@ module predictor(input wire request, result, clk, taken, output reg prediction);
   //reg [3:0] history_index;
   //reg last_taken;
   initial begin
-    counter = 2'b0;
+    counter = 2'b11;
   end
   
   always @(posedge clk) begin
@@ -12,6 +12,8 @@ module predictor(input wire request, result, clk, taken, output reg prediction);
       if(counter == 2'b00 | counter == 2'b01) begin prediction = 0; end
       if(counter == 2'b10 | counter == 2'b11) begin prediction = 1; end
     end
+  end
+  always @(posedge clk) begin
       if (result) begin
         if (taken) begin
           if(counter != 2'b11)  begin 
