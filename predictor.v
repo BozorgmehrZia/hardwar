@@ -9,13 +9,18 @@ module predictor(input wire request, result, clk, taken, output reg prediction);
   
   always @(posedge clk) begin
     if (request) begin
-      prediction = counter > 1;
+      if(counter == 2'b00 | counter == 2'b01) begin prediction = 0; end
+      if(counter == 2'b10 | counter == 2'b11) begin prediction = 1; end
     end
       if (result) begin
         if (taken) begin
+          if(counter != 2'b11)  begin 
           counter = counter + 1;
+	  end
         end else begin
+          if(counter != 2'b00)  begin 
           counter = counter - 1;
+	  end
         end
       end
   end
